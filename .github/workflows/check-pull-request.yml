@@ -1,14 +1,10 @@
 name: Push to deploy branches
 on:
-  repository_dispatch:
-    branches:
-      - 'develop'
   pull_request:
     types: [opened, reopened]
     branches:
       - 'develop'
       - 'main'
-      - 'master'
 jobs:
   test-app:
     runs-on: ubuntu-latest
