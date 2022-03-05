@@ -26,7 +26,7 @@ jobs:
       - name: "Installing dependencies"
         run: npm ci
       - name: "Running test on production"
-        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           cp .env.production .env
           npm test
