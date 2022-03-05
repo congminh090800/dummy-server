@@ -20,12 +20,13 @@ jobs:
       - name: "Installing dependencies"
         run: npm ci
       - name: "Running test"
-        env:
-          NODE_ENV: development
-          PORT: 3000
-          TEST_PORT: 6666
         run: npm test
-      - name: "Print remote repo"
-        run: git remote -v
+      - name: "Delete env dev config"
+        run: git rm --cached '.env.development'
+      - name: "Delete env prod config"
+        run: git rm --cached '.env.production'
+      - run: git commit -m 'delete env'
+      - run: git push
+        
 
   
