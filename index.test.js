@@ -23,7 +23,7 @@ describe('Health check', () => {
         const res = await supertest(app).get("/").set('Accept', 'application/json');
         expect(res.headers["content-type"]).toMatch(/json/);
         expect(res.status).toEqual(200);
-        expect(res.body === "OK").toBeTruthy();
+        expect(res.body === process.env.NODE_ENV).toBeTruthy();
     });
 
     afterAll(done => {
