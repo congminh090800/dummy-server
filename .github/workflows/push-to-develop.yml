@@ -11,6 +11,7 @@ on:
       - 'main'
       - 'master'
   pull_request:
+    types: [opened, reopened]
     branches:
       - 'develop'
       - 'main'
