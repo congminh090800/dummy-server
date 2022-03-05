@@ -17,12 +17,13 @@ jobs:
   install-dependencies:
     runs-on: ubuntu-latest
     steps:
-      - name: "Installing dependencies"
-        uses: actions/checkout@v2
+      - run: echo "%NODE_ENV% %PORT% %TEST_PORT%"
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: npm install
+      - name: "Installing dependencies"
+        run: npm install
   test-app:
     needs: install-dependencies
     runs-on: ubuntu-latest
