@@ -10,7 +10,7 @@ on:
     branches:
       - 'develop'
 jobs:
-  install-dependencies:
+  test-app:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,16 +18,12 @@ jobs:
         with:
           node-version: '14'
       - name: "Installing dependencies"
-        run: npm install
-  test-app:
-    needs: install-dependencies
-    runs-on: ubuntu-latest
-    environment: development
-    steps:
-      - shell: bash
+        run: npm ci
+      - name: "Running test"
         env:
           NODE_ENV: ${{ secrets.NODE_ENV }}
           PORT: ${{ secrets.PORT }}
           TEST_PORT: ${{ secrets.TEST_PORT }}
-        run: npm run test
+        run: npm test
+
   
