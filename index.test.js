@@ -4,7 +4,7 @@ const { describe, test, expect } = require('@jest/globals');
 const config = require('./app/config');
 const app = require('./server');
 const initServer = (app) => {
-    let server = app.listen(config.app.testPort, () => {
+    app.listen(config.app.testPort, () => {
         console.log(`Server is running for testing on port ${config.app.testPort} 🚢`);
     }).on('error', (err) => {
         if (err.code === 'EADDRINUSE') {
@@ -13,21 +13,15 @@ const initServer = (app) => {
             console.log(err);
         }
     });
-    return server;
 }
 
-let server = initServer(app);
+initServer(app);
 
 describe('Health check', () => {
-    test('GET: "/" should return secret', async () => {
+    test('GET: "/" should return OK', async () => {
         const res = await supertest(app).get("/").set('Accept', 'application/json');
         expect(res.headers["content-type"]).toMatch(/json/);
         expect(res.status).toEqual(200);
-        expect(res.body === "abc").toBeTruthy();
+        expect(res.body === "OK").toBeTruthy();
     });
-
-    afterAll(done => {
-        server.close();
-        done();
-    })
 })
