@@ -1,0 +1,37 @@
+name: Push to deploy branches
+on:
+  repository_dispatch:
+    branches:
+      - 'develop'
+      - 'main'
+      - 'master'
+  push:
+    branches:
+      - 'develop'
+      - 'main'
+      - 'master'
+  pull_request:
+    branches:
+      - 'develop'
+      - 'main'
+      - 'master'
+jobs:
+  test-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: "Installing dependencies"
+        run: npm ci
+      - name: "Running test on production"
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          cp .env.production .env
+          npm test
+      - name: "Running test on development"
+        if: ${{ github.ref == 'refs/heads/develop' }}
+        run: |
+          cp .env.development .env
+          npm test
