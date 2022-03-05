@@ -18,7 +18,7 @@ jobs:
           NODE_ENV: ${{ secrets.NODE_ENV }}
           PORT: ${{ secrets.PORT }}
           TEST_PORT: ${{ secrets.TEST_PORT }}
-        run: echo "$NODE_ENV $PORT $TEST_PORT%"
+        run: echo "$NODE_ENV $PORT $TEST_PORT"
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -29,7 +29,6 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
-      - shell: bash
       - name: "Testing app"
         run: npm run test
   
