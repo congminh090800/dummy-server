@@ -1,5 +1,8 @@
 name: Push to branch Develop
 on:
+  repository_dispatch:
+    branches:
+      - 'develop'
   push:
     branches:
       - 'develop'
@@ -15,14 +18,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Installing dependencies"
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
       - run: npm install
   test-app:
+    needs: install-dependencies
+    runs-on: ubuntu-latest
     steps:
-      - needs: install-dependencies
       - name: "Testing app"
-      - run: npm run test
+        run: npm run test
   
