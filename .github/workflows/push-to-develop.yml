@@ -1,0 +1,31 @@
+name: Push to branch Develop
+on:
+  repository_dispatch:
+    - branches:
+      - 'develop'
+  push:
+    - branches:
+      - 'develop'
+  pull_request:
+    - branches:
+      - 'develop'
+env:
+  NODE_ENV: ${{ secrets.NODE_ENV }}
+  PORT: ${{ secrets.PORT }}
+  TEST_PORT: ${{ secrets.TEST_PORT }}
+jobs:
+  install-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Installing dependencies"
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: npm install
+  test-app:
+    steps:
+      - needs: install-dependencies
+      - name: "Testing app"
+      - run: npm run test
+  
