@@ -18,10 +18,10 @@ const initServer = (app) => {
 initServer(app);
 
 describe('Health check', () => {
-    test('GET: "/" should return OK', async () => {
+    test('GET: "/" should return secret', async () => {
         const res = await supertest(app).get("/").set('Accept', 'application/json');
         expect(res.headers["content-type"]).toMatch(/json/);
         expect(res.status).toEqual(200);
-        expect(res.body === "OK").toBeTruthy();
+        expect(res.body === "abc").toBeTruthy();
     });
 })
