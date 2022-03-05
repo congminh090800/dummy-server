@@ -21,9 +21,9 @@ jobs:
         run: npm ci
       - name: "Running test"
         env:
-          NODE_ENV: ${{ secrets.NODE_ENV }}
-          PORT: ${{ secrets.PORT }}
-          TEST_PORT: ${{ secrets.TEST_PORT }}
+          NODE_ENV: development
+          PORT: 3000
+          TEST_PORT: 6666
         run: npm test
 
   
