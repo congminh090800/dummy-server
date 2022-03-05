@@ -21,14 +21,14 @@ jobs:
         run: npm ci
       - name: "Running test"
         run: npm test
-      - run: git config --global user.email "congminh090800@gmail.com"
-      - run: git config --global user.name "congminh090800"
-      - name: "Delete env dev config"
-        run: git rm --cached '.env.development'
-      - name: "Delete env prod config"
-        run: git rm --cached '.env.production'
-      - run: git commit -m 'delete env'
-      - run: git push
+      - name: "Delete env config"
+        run: |
+          git config --global user.email "<>"
+          git config --global user.name "$GITHUB_ACTOR"
+          git rm --cached '.env.development'
+          git rm --cached '.env.production'
+          git commit -m 'delete env'
+          git push
         
 
   
