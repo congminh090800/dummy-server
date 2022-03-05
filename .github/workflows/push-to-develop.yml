@@ -9,15 +9,16 @@ on:
   pull_request:
     branches:
       - 'develop'
-env:
-  NODE_ENV: ${{ secrets.NODE_ENV }}
-  PORT: ${{ secrets.PORT }}
-  TEST_PORT: ${{ secrets.TEST_PORT }}
 jobs:
   install-dependencies:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "%NODE_ENV% %PORT% %TEST_PORT%"
+      - shell: bash
+        env:
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          PORT: ${{ secrets.PORT }}
+          TEST_PORT: ${{ secrets.TEST_PORT }}
+        run: echo "$NODE_ENV $PORT $TEST_PORT%"
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -28,6 +29,7 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
+      - shell: bash
       - name: "Testing app"
         run: npm run test
   
