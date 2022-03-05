@@ -1,8 +1,5 @@
 name: Push to branch Develop
 on:
-  repository_dispatch:
-    - branches:
-      - 'develop'
   push:
     - branches:
       - 'develop'
