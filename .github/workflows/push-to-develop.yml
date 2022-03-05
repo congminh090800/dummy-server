@@ -1,10 +1,10 @@
 name: Push to branch Develop
 on:
   push:
-    - branches:
+    branches:
       - 'develop'
   pull_request:
-    - branches:
+    branches:
       - 'develop'
 env:
   NODE_ENV: ${{ secrets.NODE_ENV }}
