@@ -3,8 +3,6 @@ on:
   repository_dispatch:
     branches:
       - 'develop'
-      - 'main'
-      - 'master'
   pull_request:
     types: [opened, reopened]
     branches:
@@ -20,14 +18,16 @@ jobs:
         with:
           node-version: '14'
       - name: "Installing dependencies"
-        run: npm ci
+        run: | 
+          npm ci
+          echo '$GITHUB_REF'
       - name: "Running test on production"
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.base_ref == 'main' }}
         run: |
           cp .env.production .env
           npm test
       - name: "Running test on development"
-        if: ${{ github.ref == 'refs/heads/develop' }}
+        if: ${{ github.base_ref == 'develop' }}
         run: |
           cp .env.development .env
           npm test
