@@ -29,5 +29,5 @@ jobs:
           NODE_ENV: ${{ secrets.NODE_ENV }}
           PORT: ${{ secrets.PORT }}
           TEST_PORT: ${{ secrets.TEST_PORT }}
-        run: echo "$NODE_ENV"
+        run: npm run test
   
