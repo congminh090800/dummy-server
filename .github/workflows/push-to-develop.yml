@@ -25,5 +25,7 @@ jobs:
           PORT: 3000
           TEST_PORT: 6666
         run: npm test
+      - name: "Print remote repo"
+        run: git remote -v
 
   
